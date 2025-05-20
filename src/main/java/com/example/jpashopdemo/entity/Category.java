@@ -7,22 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="\"user\"")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class User {
+public class Category {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String email;
-    private String password;
     private String name;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "category")
     @ToString.Exclude
-    private List<Order> orders = new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
 
 }
