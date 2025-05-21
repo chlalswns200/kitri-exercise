@@ -1,32 +1,31 @@
-package com.example.jpashopdemo.entity;
+package com.example.jpashopdemo.domain.entity.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
 @Entity
-@Table(name = "orders")
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class Order {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int totalPrice;
-    private LocalDateTime orderedAt;
+    private String name;
+    private int price;
+    private int stock;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "category_id")
+    private Category category;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "product")
     @ToString.Exclude
     private List<OrderItem> orderItems = new ArrayList<>();
 }

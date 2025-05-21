@@ -1,4 +1,4 @@
-package com.example.jpashopdemo.entity;
+package com.example.jpashopdemo.domain.entity.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
