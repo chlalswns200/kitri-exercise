@@ -30,8 +30,7 @@ public class UserService {
 
     // 모든 사용자 조회
     public List<UserDto> findAll() {
-        return userRepository.findAll().stream().map(
-                userMapper::toUserDto).toList();
+        return userRepository.findAll().stream().map(userMapper::toUserDto).toList();
     }
 
     public UserDto findById(Long id) {
@@ -51,7 +50,7 @@ public class UserService {
     // Update - 사용자 정보 수정
     @Transactional
     public UserDto updateUser(Long id, UserDto userDto) {
-        if (userRepository.existsById(id)) {
+        if (!userRepository.existsById(id)) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "User not found! with id: " + id);
         }
