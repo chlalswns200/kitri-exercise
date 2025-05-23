@@ -19,8 +19,10 @@ public class Product {
 
     private String name;
     private int price;
+    @Setter
     private int stock;
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
