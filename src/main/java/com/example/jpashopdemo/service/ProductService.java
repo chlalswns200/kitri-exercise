@@ -7,6 +7,8 @@ import com.example.jpashopdemo.domain.repository.repository.ProductRepository;
 import com.example.jpashopdemo.dto.ProductDto;
 import com.example.jpashopdemo.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,7 +45,7 @@ public class ProductService {
         return productMapper.toProductDto(savedProduct);
     }
 
-
+    @Cacheable(value = "products", key = "#id")
     public ProductDto getProductByID(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found with id: " + id));
@@ -57,6 +59,7 @@ public class ProductService {
     }
 
     @Transactional
+    @Cacheable(value = "products", key = "#id")
     public ProductDto updateProduct(Long id, ProductDto productDto) {
         Product findProduct = productRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found with id: " + id));
